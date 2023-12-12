@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: .docker/Dockerfile
+        image: 'shouts.dev/laravel'
+        container_name: myvip_app
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www/html
+        networks:
+            - myvip_network
+        depends_on:
+            - mysql
+    mysql:
+        image: 'mariadb:latest'
+        container_name: myvip_db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        volumes:
+            - .docker/database/dbdata:/var/lib/mysql
+        networks:
+            - myvip_network
+
+networks:
+    myvip_network:
+        driver: bridge
