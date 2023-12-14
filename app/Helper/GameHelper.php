@@ -64,10 +64,10 @@ function GetGameList($productid, $gametype, $platform)
 {
 
     if($productid !== 1022){
-        $opcode = "E457";
+        $opcode = "E550";
     $requesttime = date("Ymdhis");
     $methodname = "getgamelist";
-    $secretkey = "XDMkAl";
+    $secretkey = "S82pvr";
     $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
     $data = [
         "OperatorCode" => $opcode,
@@ -80,16 +80,16 @@ function GetGameList($productid, $gametype, $platform)
     ];
 
     $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://prod_md.9977997.com/Seamless/getgamelist', $data);
+        ->post('https://swmd.6633663.com/Seamless/getgamelist', $data);
         logger($response);
     return $response;
 
     }else{
 
-        $opcode = "E457";
+        $opcode = "E550";
         $requesttime = date("Ymdhis");
         $methodname = "getgamelist";
-        $secretkey = "XDMkAl";
+        $secretkey = "S82pvr";
         $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
         $data = [
             "OperatorCode" => $opcode,
@@ -102,7 +102,7 @@ function GetGameList($productid, $gametype, $platform)
         ];
 
         $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://prod_md.9977997.com/Seamless/getgamelist', $data);
+        ->post('https://swmd.6633663.com/Seamless/getgamelist', $data);
 
         return $response;
     }
@@ -115,11 +115,11 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
     if($gameid == '0'){
         $gameid = '';
     }
-    $opcode = "E457";
+    $opcode = "E550";
     $password = "myvip2023";
     $requesttime = date("Ymdhis");
     $methodname = "launchgame";
-    $secretkey = "XDMkAl";
+    $secretkey = "S82pvr";
     $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
     $data = [
         "OperatorCode" => $opcode,
@@ -134,7 +134,7 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
         "RequestTime" => $requesttime
     ];
     $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://prod_md.9977997.com/Seamless/LaunchGame', $data);
+        ->post('https://swmd.6633663.com/Seamless/LaunchGame', $data);
     return $response;
 
 
