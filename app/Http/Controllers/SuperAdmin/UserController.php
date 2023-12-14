@@ -111,7 +111,7 @@ class UserController extends Controller
                 $user->image = $image->store('user');
             }
 
-            // create_table($user->user_code);
+            create_table($user->user_code);
             $user->save();
 
             if ($request->balance) {
