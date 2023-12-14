@@ -20,7 +20,7 @@
                 <div class="input-group">
                     <select class="form-control select2 " id="side_status">
                         <option value="" >All</option>
-                        <option value="myvip"  @if ('myvip'==request()->side) selected @endif>MYvip</option>
+                        <option value="HtawB"  @if ('myvip'==request()->side) selected @endif>MYvip</option>
                         <option value="icasino" @if ('icasino'==request()->side) selected @endif>Icasino</option>
                     </select>
                 </div>

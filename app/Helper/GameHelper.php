@@ -116,7 +116,7 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
         $gameid = '';
     }
     $opcode = "E550";
-    $password = "myvip2023";
+    $password = "htawb2023";
     $requesttime = date("Ymdhis");
     $methodname = "launchgame";
     $secretkey = "S82pvr";
