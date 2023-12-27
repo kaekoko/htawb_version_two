@@ -173,7 +173,7 @@
         var leftPosition = 0;
         var topPosition = 0;
         var windowFeatures = 'width=800,height=600,left=' + leftPosition + ',top=' + topPosition;
-        window.open(`https://swmd.6633663.com/Report/BetDetail?agentCode=E550&WagerID=${warger}`, '_blank',
+        window.open(`https://prod_md.9977997.com/Report/BetDetail?agentCode=E550&WagerID=${warger}`, '_blank',
             windowFeatures);
     }
 </script>

@@ -20,7 +20,7 @@ class CallBackController extends Controller
       $reqdata = (object) $Request;
       $methodname = "getbalance";
       $opcode = "E550";
-      $secretkey = "S82pvr";
+      $secretkey = "u1poX0";
       $requesttime = $reqdata->RequestTime;
       $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
       $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -66,7 +66,7 @@ class CallBackController extends Controller
 
          $methodname = "placebet";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -134,7 +134,7 @@ class CallBackController extends Controller
 
          $methodname = "gameresult";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -191,7 +191,7 @@ class CallBackController extends Controller
 
          $methodname = "rollback";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -251,7 +251,7 @@ class CallBackController extends Controller
 
          $methodname = "cancelbet";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -312,7 +312,7 @@ class CallBackController extends Controller
 
          $methodname = "bonus";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -371,7 +371,7 @@ class CallBackController extends Controller
 
          $methodname = "jackpot";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata->RequestTime;
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();
@@ -430,7 +430,7 @@ class CallBackController extends Controller
       $reqdata = (object) $Request;
       $methodname = "mobilelogin";
       $opcode = "E550";
-      $secretkey = "S82pvr";
+      $secretkey = "u1poX0";
       $requesttime = $reqdata->RequestTime;
       $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
       if ($sign == $reqdata->Sign) {
@@ -477,7 +477,7 @@ class CallBackController extends Controller
 
          $methodname = "buyin";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata['RequestTime'];
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata['MemberName'])->first();
@@ -549,7 +549,7 @@ class CallBackController extends Controller
 
          $methodname = "buyout";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata['RequestTime'];
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata['MemberName'])->first();
@@ -614,7 +614,7 @@ class CallBackController extends Controller
 
          $methodname = "pushbet";
          $opcode = "E550";
-         $secretkey = "S82pvr";
+         $secretkey = "u1poX0";
          $requesttime = $reqdata['RequestTime'];
          $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
          $user = User::select('balance','user_code')->where('user_code', $reqdata->MemberName)->first();

@@ -67,7 +67,7 @@ function GetGameList($productid, $gametype, $platform)
         $opcode = "E550";
     $requesttime = date("Ymdhis");
     $methodname = "getgamelist";
-    $secretkey = "S82pvr";
+    $secretkey = "u1poX0";
     $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
     $data = [
         "OperatorCode" => $opcode,
@@ -80,7 +80,7 @@ function GetGameList($productid, $gametype, $platform)
     ];
 
     $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://swmd.6633663.com/Seamless/getgamelist', $data);
+        ->post('https://prod_md.9977997.com/Seamless/getgamelist', $data);
         logger($response);
     return $response;
 
@@ -89,7 +89,7 @@ function GetGameList($productid, $gametype, $platform)
         $opcode = "E550";
         $requesttime = date("Ymdhis");
         $methodname = "getgamelist";
-        $secretkey = "S82pvr";
+        $secretkey = "u1poX0";
         $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
         $data = [
             "OperatorCode" => $opcode,
@@ -102,7 +102,7 @@ function GetGameList($productid, $gametype, $platform)
         ];
 
         $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://swmd.6633663.com/Seamless/getgamelist', $data);
+        ->post('https://prod_md.9977997.com/Seamless/getgamelist', $data);
 
         return $response;
     }
@@ -119,7 +119,7 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
     $password = "htawb2023";
     $requesttime = date("Ymdhis");
     $methodname = "launchgame";
-    $secretkey = "S82pvr";
+    $secretkey = "u1poX0";
     $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
     $data = [
         "OperatorCode" => $opcode,
@@ -134,7 +134,7 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
         "RequestTime" => $requesttime
     ];
     $response = Http::withHeaders(['Content-Type' => 'application/json',])
-        ->post('https://swmd.6633663.com/Seamless/LaunchGame', $data);
+        ->post('https://prod_md.9977997.com/Seamless/LaunchGame', $data);
     return $response;
 
 
