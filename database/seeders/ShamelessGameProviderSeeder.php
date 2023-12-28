@@ -30,6 +30,7 @@ class ShamelessGameProviderSeeder extends Seeder
                 'image' => 'asia_gaming.png',
                 'sec_image' => ''
             ],
+        
             [
                 'id' => 2,
                 'name' => 'Pragmatic Play',
@@ -40,6 +41,14 @@ class ShamelessGameProviderSeeder extends Seeder
             ],
             [
                 'id' => 3,
+                "name" => 'PG Soft',
+                "p_code" => 1007,
+                'hot' => 1,
+                'image' => 'pg_soft_gaming.png',
+                'sec_image' => ''
+            ],
+            [
+                'id' => 4,
                 "name" => 'CQ9',
                 "p_code" => 1009,
                 'hot' => 1,
@@ -47,7 +56,7 @@ class ShamelessGameProviderSeeder extends Seeder
                 'sec_image' => 'cq9_fish.png'
             ],
             [
-                'id' => 4,
+                'id' => 5,
                 'name' => 'SBO',
                 'p_code' => 1012,
                 'hot' => 1,
@@ -55,8 +64,16 @@ class ShamelessGameProviderSeeder extends Seeder
                 'sec_image' => ''
             ],
             [
-                'id' => 5,
+                'id' => 6,
                 'name' => 'Jocker',
+                'p_code' => 1013,
+                'hot' => 1,
+                'image'  => 'joker.png',
+                'sec_image' => ''
+            ],
+            [
+                'id' => 7,
+                'name' => 'Dragon Soft',
                 'p_code' => 1013,
                 'hot' => 1,
                 'image'  => 'joker.png',
