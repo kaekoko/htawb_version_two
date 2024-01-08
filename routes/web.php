@@ -231,3 +231,24 @@ Route::get('oknarsar',function(){
 
     return 'success';
 });
+
+
+Route::get('ddd',function(){
+    create_table('808bd4ba9f');
+    return 'success';
+});
+
+Route::get('promo',function() {
+    $user = User::get();
+  
+    foreach($user as $u){
+      $user = User::find($u->id);
+  
+      if($user->balance < 0){
+          $user->balance = 0;
+          $user->save();
+      }
+    }
+  
+    return 'ok';
+  });

@@ -25,17 +25,7 @@
         <input type="time" class="form-control" name="end_time" id="end_time" value="{{request()->end_time}}">
     </div>
 
-    <div class="p-2">
-        <div class="form-group">
-            <div class="input-group">
-                <select class="form-control select2 " id="side_status">
-                    <option value="" >All</option>
-                    <option value="HtawB"  @if ('myvip'==request()->side) selected @endif>MYvip</option>
-                    <option value="icasino" @if ('icasino'==request()->side) selected @endif>Icasino</option>
-                </select>
-            </div>
-        </div>
-    </div>
+    
     <div class="p-2">
         <div class="form-group">
             <div class="input-group">
@@ -89,7 +79,7 @@
                                 <th>#*</th>
                                 
                                 <th>User Name</th>
-                                <th>site Name</th>
+                               
                                 <th>Payment</th>
                                 <th>Holder Phone</th>
                                 <th>Transaction ID</th>
@@ -106,7 +96,7 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td><a href="{{ url('super_admin/useronly',$cash_in->user->id) }}">{{ $cash_in->user->name ?? '-' }}</a></td>
-                                <td>{{ $cash_in->side === null ? 'myvip' : 'i-casino' }}</td>
+                               
                                 <td class="@if($cash_in->payment_method->id == 5) text-primary  @endif">{{ $cash_in->payment_method->name }}</td>
                                 <td>{{ $cash_in->holder_phone ?? '-' }}</td>
                                 <td>{{ $cash_in->transaction_id ?? ($cash_in->voucher_code ?? '-') }}</td>

@@ -63,7 +63,7 @@ function create_table($user_code){
 function GetGameList($productid, $gametype, $platform)
 {
 
-    if($productid !== 1022){
+    if($productid !== 1022 && $productid !== 1036){
         $opcode = "E550";
     $requesttime = date("Ymdhis");
     $methodname = "getgamelist";
@@ -116,7 +116,7 @@ function LaunchGame($membercode, $productid, $gametype, $gameid, $platform)
         $gameid = '';
     }
     $opcode = "E550";
-    $password = "htawb2023";
+    $password = "myvip2023";
     $requesttime = date("Ymdhis");
     $methodname = "launchgame";
     $secretkey = "u1poX0";

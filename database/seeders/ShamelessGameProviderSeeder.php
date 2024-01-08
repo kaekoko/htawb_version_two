@@ -30,7 +30,6 @@ class ShamelessGameProviderSeeder extends Seeder
                 'image' => 'asia_gaming.png',
                 'sec_image' => ''
             ],
-        
             [
                 'id' => 2,
                 'name' => 'Pragmatic Play',
@@ -41,14 +40,6 @@ class ShamelessGameProviderSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                "name" => 'PG Soft',
-                "p_code" => 1007,
-                'hot' => 1,
-                'image' => 'pg_soft_gaming.png',
-                'sec_image' => ''
-            ],
-            [
-                'id' => 4,
                 "name" => 'CQ9',
                 "p_code" => 1009,
                 'hot' => 1,
@@ -56,7 +47,7 @@ class ShamelessGameProviderSeeder extends Seeder
                 'sec_image' => 'cq9_fish.png'
             ],
             [
-                'id' => 5,
+                'id' => 4,
                 'name' => 'SBO',
                 'p_code' => 1012,
                 'hot' => 1,
@@ -64,16 +55,8 @@ class ShamelessGameProviderSeeder extends Seeder
                 'sec_image' => ''
             ],
             [
-                'id' => 6,
+                'id' => 5,
                 'name' => 'Jocker',
-                'p_code' => 1013,
-                'hot' => 1,
-                'image'  => 'joker.png',
-                'sec_image' => ''
-            ],
-            [
-                'id' => 7,
-                'name' => 'Dragon Soft',
                 'p_code' => 1013,
                 'hot' => 1,
                 'image'  => 'joker.png',
@@ -201,12 +184,136 @@ class ShamelessGameProviderSeeder extends Seeder
             ],
             [
                 'id' => 21,
-                'name' => 'Funta Gaming',
-                'p_code' => 1097,
+                'name' => 'Vivo Gaming',
+                'p_code' => 1035,
                 'hot' => 1,
-                'image' => 'funta.jpg',
+                'image' => 'vivo.png',
                 'sec_image' => ''
             ],
+            [
+                'id' => 22,
+                'name' => 'Dragon Soft',
+                'p_code' => 1014,
+                'hot' => 1,
+                'image' => 'dragon_soft.png',
+                'sec_image' => ''
+            ],
+            [
+                'id' => 23,
+                'name' => 'King855',
+                'p_code' => 1038,
+                'hot' => 1,
+                'image' => 'king855.png',
+                'sec_image' => ''
+            ],
+            [
+                'id' => 24,
+                'name' => 'SV388 Cock Fighting',
+                'p_code' => 1033,
+                'hot' => 1,
+                'image' => 'svfighting.png',
+                'sec_image' => ''
+            ],
+
+            [
+                'id' => 25,
+                'name' => 'IBC',
+                'p_code' => 1046,
+                'hot' => 1,
+                'image' => 'ibc.png',
+                'sec_image' => ''
+            ],
+            
+            [
+                'id' => 26,
+                'name' => 'IBC',
+                'p_code' => 1046,
+                'hot' => 1,
+                'image' => 'ibc.png',
+                'sec_image' => ''
+            ],
+
+            [
+                'id' => 27,
+                'name' => 'Advant Play',
+                'p_code' => 1084,
+                'hot' => 1,
+                'image' => 'advantPlay.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 28,
+                'name' => 'TrueLab',
+                'p_code' => 1056,
+                'hot' => 1,
+                'image' => 'truelab.png',
+                'sec_image' => ''
+            ], 
+            
+
+            [
+                'id' => 29,
+                'name' => 'Net Game',
+                'p_code' => 1064,
+                'hot' => 1,
+                'image' => 'netgame.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 30,
+                'name' => 'Boongo',
+                'p_code' => 1070,
+                'hot' => 1,
+                'image' => 'boongo.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 31,
+                'name' => 'BTI',
+                'p_code' => 1081,
+                'hot' => 1,
+                'image' => 'bti.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 32,
+                'name' => 'Felix Gaming',
+                'p_code' => 1098,
+                'hot' => 1,
+                'image' => 'felixgaming.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 33,
+                'name' => 'Espresso',
+                'p_code' => 1099,
+                'hot' => 1,
+                'image' => 'espresso.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 34,
+                'name' => 'Royal Slot Gaming',
+                'p_code' => 1105,
+                'hot' => 1,
+                'image' => 'royal.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 35,
+                'name' => 'Red Tiger',
+                'p_code' => 1110,
+                'hot' => 1,
+                'image' => 'redtiger.png',
+                'sec_image' => ''
+            ], 
         ];
 
 
@@ -215,7 +322,7 @@ class ShamelessGameProviderSeeder extends Seeder
             $g = ShamelessGameProvider::create($game);
             switch ($game['name']) {
                 case "Asia Gaming":
-                    $g->categories()->sync([2]);
+                    $g->categories()->sync([1,2]);
                     break;
                 case "Pragmatic Play":
                     $g->categories()->sync([1, 2]);
@@ -239,7 +346,7 @@ class ShamelessGameProviderSeeder extends Seeder
                     $g->categories()->sync([2]);
                     break;
                 case "Spade Gaming":
-                    $g->categories()->sync([1,8,9]);
+                    $g->categories()->sync([1,8]);
                     break;
                 case "UG Sport":
                     $g->categories()->sync([3]);
@@ -275,6 +382,58 @@ class ShamelessGameProviderSeeder extends Seeder
                     $g->categories()->sync([1, 6, 8]);
                     break;
                 case "Funta Gaming":
+                    $g->categories()->sync([1]);
+                    break;
+                case "Dragon Soft":
+                    $g->categories()->sync([1,6,8]);
+                    break;
+                case "King855":
+                    $g->categories()->sync([2]);
+                    break;
+                case "SV388 Cock Fighting":
+                    $g->categories()->sync([9]);
+                    break;
+                case "IBC":
+                    $g->categories()->sync([3]);
+                    break;
+
+                case "Advant Play":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "TrueLab":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "Net Game":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "Boongo":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "Skywind":
+                    $g->categories()->sync([1,2]);
+                    break;
+
+                case "BTI":
+                    $g->categories()->sync([3]);
+                    break;
+
+                case "Felix Gaming":
+                    $g->categories()->sync([1]);
+                    break;
+            
+                case "Espresso":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "Royal Slot Gaming":
+                    $g->categories()->sync([1]);
+                    break;
+
+                case "Red Tiger":
                     $g->categories()->sync([1]);
                     break;
             }

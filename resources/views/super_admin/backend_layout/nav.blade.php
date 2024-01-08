@@ -6,11 +6,7 @@
         </li>
         <li class="nav-item">
             {{-- Tooltip --}}
-            <button type="button" class="btn btn-secondary bs-hidden" id="bs-tooltip-thai-2d-3d">
-               MYVIP
-            </button>
-            <a data-bs-tooltip="bs-tooltip-thai-2d-3d" class="nav-link bs-tooltip"
-                href="{{ url('super_admin/dashboard') }}" role="button"><button class="btn btn-sm @if(Request::is('super_admin/*')) bg-warning @endif border">MYVIP</button></i></a>
+            
         </li>
         <!-- <li class="nav-item">
             {{-- Tooltip --}}
@@ -26,8 +22,7 @@
             <button type="button" class="btn btn-secondary bs-hidden" id="bs-tooltip-game">
                 i casino side
             </button>
-            <a data-bs-tooltip="bs-tooltip-game" class="nav-link bs-tooltip" href="{{ url('game/user') }}"
-                role="button"><button class="btn btn-sm @if(Request::is('game/*')) bg-warning @endif border">i Casino</button></a>
+
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

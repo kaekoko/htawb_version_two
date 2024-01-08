@@ -20,6 +20,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\NumberSettingCrypto2d;
+use App\Models\OverAllSetting;
 
 class DashboardCrypto2dController extends Controller
 {
@@ -32,122 +33,133 @@ class DashboardCrypto2dController extends Controller
     }
 
 
-        // Function to get formatted date
-        private function getFormattedDate($requestDate) {
-            return $requestDate ? $requestDate : date('Y-m-d');
-        }
-    
-        // Function to get formatted time
-        private function getFormattedTime($section) {
-            return Carbon::createFromFormat('H:i:s', $section)->format('h:i A');
-        }
-    
-        // Function to get block or hot data
-        private function getBlockOrHotData($type, $date, $section) {
-            $data = NumberSettingCrypto2d::where('type', $type)
-                ->whereDate('created_at', $date)
-                ->where('section', $this->getFormattedTime($section))
-                ->first();
-    
-            return $data ? explode(',', $data->block_number) : [];
-        }
-    
-        // Function to get block or hot data
-        private function getBlockOrHotAmount($type, $date, $section) {
-            $data = NumberSettingCrypto2d::where('type', $type)
-                ->whereDate('created_at', $date)
-                ->where('section', $this->getFormattedTime($section))
-                ->first();
-    
-            return $data ? $data->hot_amount : 0;
-        }
-    
-    
-        // Function to get section data
-        private function getSectionData($section) {
-            return SectionCrypto2d::where('time_section', $section)
-                ->first();
-        }
-    
-        // Function to get user bets
-        private function getUserBets($date, $formatTime) {
-            return UserBetCrypto2d::with('bettings_c2d')
-                ->where('date', $date)
-                ->where('section', $formatTime)
-                ->get();
-        }
-    
-        // Function to get betting total
-        private function getBettingTotal($date, $formatTime) {
-            return BettingCrypto2d::select('bet_number', DB::raw('SUM(amount) as amount'))
-                ->where('section', $formatTime)
-                ->where('date', $date)
-                ->groupBy('bet_number')
-                ->get();
-        }
-    
-        // Function to get overall stats
-        private function getOverallStats($date, $formatTime) {
-            return UserBetCrypto2d::select(
-                DB::raw('SUM(total_amount) as total_amount'),
-                DB::raw('SUM(reward_amount) as reward_amount')
-            )
-                ->where('date', $date)
-                ->where('section', $formatTime)
-                ->first();
-        }
-    
-        private function getLuckyNumber($date,$formatTime){
-            return LuckyNumber::where('create_date',$date)
-                    ->where('category_id',3)
-                    ->where('section',$formatTime)
-                    ->where('approve',1)
-                    ->first();
-        }
-    
-        public function section(Request $request,$section){
-            $loading = true;
-            $two_ds = CryptoTwoD::all();
-            $currentDate = Carbon::now();
-            $two_lottery_off = false;
-    
-            $two_lottery_off_weekend = false;
-           
-            $date = $this->getFormattedDate($request->dashboard_date);
-            $lottery_off_day = LotteryOffDay::where('off_day',$date)->where('category_id',3)->get();
-            
-            
-            foreach($lottery_off_day as $n){
-                if( $date == $n->off_day){
-                  $two_lottery_off = true;
-                }else{
-                  $two_lottery_off = false;
-                }
+    // Function to get formatted date
+    private function getFormattedDate($requestDate)
+    {
+        return $requestDate ? $requestDate : date('Y-m-d');
+    }
+
+    // Function to get formatted time
+    private function getFormattedTime($section)
+    {
+        return Carbon::createFromFormat('H:i:s', $section)->format('h:i A');
+    }
+
+    // Function to get block or hot data
+    private function getBlockOrHotData($type, $date, $section)
+    {
+        $data = NumberSettingCrypto2d::where('type', $type)
+            ->whereDate('created_at', $date)
+            ->where('section', $this->getFormattedTime($section))
+            ->first();
+
+        return $data ? explode(',', $type == 'hot' ? $data->hot_number : $data->block_number) : [];
+    }
+
+    // Function to get block or hot data
+    private function getBlockOrHotAmount($type, $date, $section)
+    {
+        $data = NumberSettingCrypto2d::where('type', $type)
+            ->whereDate('created_at', $date)
+            ->where('section', $this->getFormattedTime($section))
+            ->first();
+
+        return $data ? $data->hot_amount : 0;
+    }
+
+
+    // Function to get section data
+    private function getSectionData($section)
+    {
+        return SectionCrypto2d::where('time_section', $section)
+            ->first();
+    }
+
+    // Function to get user bets
+    private function getUserBets($date, $formatTime)
+    {
+        return UserBetCrypto2d::with('bettings_c2d')
+            ->where('date', $date)
+            ->where('section', $formatTime)
+            ->get();
+    }
+
+    // Function to get betting total
+    private function getBettingTotal($date, $formatTime)
+    {
+        return BettingCrypto2d::select('bet_number', DB::raw('SUM(amount) as amount'))
+            ->where('section', $formatTime)
+            ->where('date', $date)
+            ->groupBy('bet_number')
+            ->get();
+    }
+
+    // Function to get overall stats
+    private function getOverallStats($date, $formatTime)
+    {
+        return UserBetCrypto2d::select(
+            DB::raw('SUM(total_amount) as total_amount'),
+            DB::raw('SUM(reward_amount) as reward_amount')
+        )
+            ->where('date', $date)
+            ->where('section', $formatTime)
+            ->first();
+    }
+
+    private function getLuckyNumber($date, $formatTime)
+    {
+        return LuckyNumber::where('create_date', $date)
+            ->where('category_id', 3)
+            ->where('section', $formatTime)
+            ->where('approve', 1)
+            ->first();
+    }
+
+    public function section(Request $request, $section)
+    {
+        $loading = true;
+        $two_ds = CryptoTwoD::all();
+        $currentDate = Carbon::now();
+        $two_lottery_off = false;
+
+        $two_lottery_off_weekend = false;
+
+        $date = $this->getFormattedDate($request->dashboard_date);
+        $lottery_off_day = LotteryOffDay::where('off_day', $date)->where('category_id', 3)->get();
+
+
+        foreach ($lottery_off_day as $n) {
+            if ($date == $n->off_day) {
+                $two_lottery_off = true;
+            } else {
+                $two_lottery_off = false;
             }
-    
-            $formatTime =  $this->getFormattedTime($section);
-            $block_number =  $this->getBlockOrHotData('block', $date, $section);
-            $hot_number =  $this->getBlockOrHotData('hot', $date, $section);
-            $hot_amount = $this->getBlockOrHotAmount('hot',$date, $section);
-            $section =  $this->getSectionData($section);
-            $betting =  $this->getUserBets($date, $formatTime);
-            $betting_total =  $this->getBettingTotal($date, $formatTime);
-            $total_amount =  $this->getOverallStats($date, $formatTime);
-            $luckynumber  = $this->getLuckyNumber($date, $formatTime);
-            if($luckynumber){
-                $numberLucky = $luckynumber->lucky_number;
-                $read = $luckynumber->read;
-                $approve = $luckynumber->approve;
-            }else{
-                $numberLucky = '--';
-                $read = '0';
-                $approve = '0';
-            }
-    
-           
-            $loading = false;
-            return view('super_admin.dashboard_crypto_2d.index', compact('two_lottery_off_weekend','two_lottery_off','loading','two_ds','section','block_number','hot_number','hot_amount','betting','betting_total','total_amount','numberLucky','read','approve'));
         }
+
+        $formatTime =  $this->getFormattedTime($section);
+        $block_number =  $this->getBlockOrHotData('block', $date, $section);
+        $hot_number =  $this->getBlockOrHotData('hot', $date, $section);
+        $hot_amount = $this->getBlockOrHotAmount('hot', $date, $section);
+        $section =  $this->getSectionData($section);
+        $betting =  $this->getUserBets($date, $formatTime);
+        $betting_total =  $this->getBettingTotal($date, $formatTime);
+        $total_amount =  $this->getOverallStats($date, $formatTime);
+        $luckynumber  = $this->getLuckyNumber($date, $formatTime);
+        if ($luckynumber) {
+            $numberLucky = $luckynumber->lucky_number;
+            $read = $luckynumber->read;
+            $approve = $luckynumber->approve;
+        } else {
+            $numberLucky = '--';
+            $read = '0';
+            $approve = '0';
+        }
+
+        $overAll = OverAllSetting::first();
+
+        $loading = false;
+        return view('super_admin.dashboard_crypto_2d.index', compact('two_lottery_off_weekend', 'two_lottery_off', 'loading', 'two_ds', 'section', 'block_number', 'hot_number', 'hot_amount', 'betting', 'betting_total', 'total_amount', 'numberLucky', 'read', 'approve', 'overAll'));
+    }
 
     public function clearance(Request $request)
     {
@@ -206,9 +218,9 @@ class DashboardCrypto2dController extends Controller
                 $user->balance += $status->reward_amount;
                 $user->save();
             }
-            return redirect('super_admin/dashboard/sectionc2d/'.$request->section)->with('flash_message', $section . ' Clearance Success');
+            return redirect('super_admin/dashboard/sectionc2d/' . $request->section)->with('flash_message', $section . ' Clearance Success');
         } else {
-            return redirect('super_admin/dashboard/sectionc2d/'.$request->section)->with('error_message', 'Your password incorrect');
+            return redirect('super_admin/dashboard/sectionc2d/' . $request->section)->with('error_message', 'Your password incorrect');
         }
     }
 
@@ -308,10 +320,10 @@ class DashboardCrypto2dController extends Controller
     {
         $bet_slips = [];
         $date = $request->date;
-        $user_bets = UserBetCrypto2d::whereDate('date',$date)->get();
-        foreach($user_bets as $user_bet){
+        $user_bets = UserBetCrypto2d::whereDate('date', $date)->get();
+        foreach ($user_bets as $user_bet) {
 
-            if(isset($user_bet->user->super_admin->name)){
+            if (isset($user_bet->user->super_admin->name)) {
                 $agent_name = $user_bet->user->super_admin->name;
             }
 
@@ -324,7 +336,7 @@ class DashboardCrypto2dController extends Controller
                 "date" => date('d-M-Y H:i:s', strtotime($user_bet->created_at)),
                 "action" => $user_bet->id,
             ];
-            array_push($bet_slips,$bet);
+            array_push($bet_slips, $bet);
         }
         return $bet_slips;
     }

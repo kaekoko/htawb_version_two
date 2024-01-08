@@ -24,7 +24,7 @@ jobs:
             chmod -R 777 storage bootstrap/cache
             php artisan config:clear
             php artisan storage:link
-            # php artisan migrate:fresh --seed
+            php artisan migrate:fresh --seed
             php artisan passport:install
             # php artisan migrate
             # composer install

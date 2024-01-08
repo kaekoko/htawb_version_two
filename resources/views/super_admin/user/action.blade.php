@@ -38,8 +38,6 @@
 
             <div class="dropdown-divider"></div>
 
-            <a class="dropdown-item py-0" href="{{ url('/super_admin/user/transition_history/' . $row->user_code) }}">Game History</a>
-
             <a class="dropdown-item py-0" href="{{ url('/super_admin/only/betslip/histroy/' . $row->user_code) }}">Game History new</a>
 
 

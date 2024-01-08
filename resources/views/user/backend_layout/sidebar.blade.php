@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="https://backend.myvipmm.com/super_admin/dashboard" class="brand-link border-bottom-0 d-flex justify-content-center align-items-center">
         <img src="{{ asset('backend/logo.png') }}" alt="Logo" width="120">
-        <span class="brand-text font-weight-light">MYVIP</span>
+        <span class="brand-text font-weight-light">HTAWB</span>
     </a>
 
     <!-- Sidebar -->

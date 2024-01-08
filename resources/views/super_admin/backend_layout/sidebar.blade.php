@@ -6,10 +6,10 @@
 
 
         @if (Request::is('game/*'))
-            <img src="{{ asset('backend/icasino_ficon.png') }}" alt="Logo" width="120">
+            <img src="{{ asset('backend/icasino_ficon.png') }}" alt="Logo" width="50">
         @else
-            <img src="{{ asset('backend/logo.png') }}" alt="Logo" width="120">
-            <span class="brand-text font-weight-light">MYVIP</span>
+            <img src="{{ asset('backend/logo.png') }}" alt="Logo" width="60">
+            <span class="brand-text font-weight-light">HTAWB</span>
         @endif
     </a>
     @php
@@ -21,6 +21,14 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu"
                 data-accordion="false">
+                <li class="nav-item">
+                        <a href="{{ url('/super_admin/main/dashboard') }}" class="nav-link @yield('main-dashboard-active')">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Main Dashboard
+                            </p>
+                        </a>
+                    </li>
                 {{-- Super Admin Dashboard --}}
                 @if (Request::is('super_admin/*'))
                     <li class="nav-item">

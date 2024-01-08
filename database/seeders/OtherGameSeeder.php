@@ -113,6 +113,49 @@ class OtherGameSeeder extends Seeder
                 'name' => 'Sexy Gaming',
             ],
 
+            [
+                'g_code' => '0',
+                'provider_id' => 24,
+                'category_id' => 9,
+                'cate_code' => 9,
+                'p_code' => 1033,
+                'active' => 1,
+                'is_hot' => 0,
+                'is_new' => 0,
+                'html_type' => 0,
+                'image' => "https://admin.htawb2d3d.com/provider/svfighting.png",
+                'name' => 'SV Fighting',
+            ],
+
+
+            [
+                'g_code' => '0',
+                'provider_id' => 25,
+                'category_id' => 3,
+                'cate_code' => 3,
+                'p_code' => 1046,
+                'active' => 1,
+                'is_hot' => 0,
+                'is_new' => 0,
+                'html_type' => 0,
+                'image' => "https://admin.htawb2d3d.com/provider/ibc.png",
+                'name' => 'IBC GAMING',
+            ],
+
+            [
+                'g_code' => '0',
+                'provider_id' => 31,
+                'category_id' => 3,
+                'cate_code' => 3,
+                'p_code' => 1081,
+                'active' => 1,
+                'is_hot' => 0,
+                'is_new' => 0,
+                'html_type' => 0,
+                'image' => "https://admin.htawb2d3d.com/provider/bti.png",
+                'name' => 'BTI Gaming',
+            ],
+
         ];
 
         ShamelessGame::insert($othergames);

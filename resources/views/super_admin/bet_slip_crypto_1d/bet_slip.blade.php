@@ -22,15 +22,7 @@
             </div>
         </div>
         <div class="p-2">
-        <div class="form-group">
-            <div class="input-group">
-                <select class="form-control select2 " id="side_status">
-                    <option value="" >All</option>
-                    <option value="HtawB"  @if ('myvip'==request()->side_stats) selected @endif>MYvip</option>
-                    <option value="icasino" @if ('icasino'==request()->side_stats) selected @endif>Icasino</option>
-                </select>
-            </div>
-        </div>
+        
     </div>
         <div class="p-2">
             <div class="form-group">
@@ -65,7 +57,7 @@
                                 <tr>
                                     <th>#Bet Slip</th>
                                     <th>Username</th>
-                                    <th>site</th>
+                                  
                                     <th>phone</th>
                                     <th>Section</th>
                                     <th>Total Amount</th>
@@ -81,7 +73,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->user->name }}</td>
-                                        <td>{{ $item->user->side == null ? 'myvip' : 'icasino' }}</td>
+                                       
                                         <td>{{ $item->user->phone }}</td>
                                         <td>{{ $item->section }}</td>
                                         <td>

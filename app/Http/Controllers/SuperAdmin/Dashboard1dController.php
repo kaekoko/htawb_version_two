@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use DateTime;
 use Carbon\Carbon;
 use App\Models\OneD;
 use App\Models\TwoD;
@@ -27,6 +28,7 @@ use App\Models\UserReferHistory;
 use App\Models\CommissionHistory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\OverAllSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
@@ -40,127 +42,140 @@ class Dashboard1dController extends Controller
         return view('super_admin.dashboard_1d.section', compact('sections'));
     }
 
-        // Function to get formatted date
-        private function getFormattedDate($requestDate) {
-            return $requestDate ? $requestDate : date('Y-m-d');
-        }
-    
-        // Function to get formatted time
-        private function getFormattedTime($section) {
-            return Carbon::createFromFormat('H:i:s', $section)->format('h:i A');
-        }
-    
-        // Function to get block or hot data
-        private function getBlockOrHotData($type, $date, $section) {
-            $data = NumberSetting1d::where('type', $type)
-                ->whereDate('created_at', $date)
-                ->where('section', $this->getFormattedTime($section))
-                ->first();
-    
-            return $data ? explode(',', $data->block_number) : [];
-        }
-    
-        // Function to get block or hot data
-        private function getBlockOrHotAmount($type, $date, $section) {
-            $data = NumberSetting1d::where('type', $type)
-                ->whereDate('created_at', $date)
-                ->where('section', $this->getFormattedTime($section))
-                ->first();
-    
-            return $data ? $data->hot_amount : 0;
-        }
-    
-    
-        // Function to get section data
-        private function getSectionData($section) {
-            return Section1d::where('is_open', 1)
-                ->where('time_section', $section)
-                ->first();
-        }
-    
-        // Function to get user bets
-        private function getUserBets($date, $formatTime) {
-            return UserBet1d::with('bettings')
-                ->where('date', $date)
-                ->where('section', $formatTime)
-                ->get();
-        }
-    
-        // Function to get betting total
-        private function getBettingTotal($date, $formatTime) {
-            return Betting1d::select('bet_number', DB::raw('SUM(amount) as amount'))
-                ->where('section', $formatTime)
-                ->where('date', $date)
-                ->groupBy('bet_number')
-                ->get();
-        }
-    
-        // Function to get overall stats
-        private function getOverallStats($date, $formatTime) {
-            return UserBet1d::select(
-                DB::raw('SUM(total_amount) as total_amount'),
-                DB::raw('SUM(reward_amount) as reward_amount')
-            )
-                ->where('date', $date)
-                ->where('section', $formatTime)
-                ->first();
-        }
-    
-        private function getLuckyNumber($date,$formatTime){
-            return LuckyNumber::where('create_date',$date)
-                    ->where('category_id',4)
-                    ->where('section',$formatTime)
-                    ->where('approve',1)
-                    ->first();
-        }
+    // Function to get formatted date
+    private function getFormattedDate($requestDate)
+    {
+        return $requestDate ? $requestDate : date('Y-m-d');
+    }
 
-    public function section(Request $request,$section){
+    // Function to get formatted time
+    private function getFormattedTime($section)
+    {
+        return Carbon::createFromFormat('H:i:s', $section)->format('h:i A');
+    }
+
+    // Function to get block or hot data
+    private function getBlockOrHotData($type, $date, $section)
+    {
+        $data = NumberSetting1d::where('type', $type)
+            ->whereDate('created_at', $date)
+            ->where('section', $this->getFormattedTime($section))
+            ->first();
+
+        return $data ? explode(',', $type == 'hot' ? $data->hot_number : $data->block_number) : [];
+    }
+
+    // Function to get block or hot data
+    private function getBlockOrHotAmount($type, $date, $section)
+    {
+        $data = NumberSetting1d::where('type', $type)
+            ->whereDate('created_at', $date)
+            ->where('section', $this->getFormattedTime($section))
+            ->first();
+
+        return $data ? $data->hot_amount : 0;
+    }
+
+
+    // Function to get section data
+    private function getSectionData($section)
+    {
+        return Section1d::where('is_open', 1)
+            ->where('time_section', $section)
+            ->first();
+    }
+
+    // Function to get user bets
+    private function getUserBets($date, $formatTime)
+    {
+        return UserBet1d::with('bettings')
+            ->where('date', $date)
+            ->where('section', $formatTime)
+            ->get();
+    }
+
+    // Function to get betting total
+    private function getBettingTotal($date, $formatTime)
+    {
+        return Betting1d::select('bet_number', DB::raw('SUM(amount) as amount'))
+            ->where('section', $formatTime)
+            ->where('date', $date)
+            ->groupBy('bet_number')
+            ->get();
+    }
+
+    // Function to get overall stats
+    private function getOverallStats($date, $formatTime)
+    {
+        return UserBet1d::select(
+            DB::raw('SUM(total_amount) as total_amount'),
+            DB::raw('SUM(reward_amount) as reward_amount')
+        )
+            ->where('date', $date)
+            ->where('section', $formatTime)
+            ->first();
+    }
+
+    private function getLuckyNumber($date, $formatTime)
+    {
+        return LuckyNumber::where('create_date', $date)
+            ->where('category_id', 4)
+            ->where('section', $formatTime)
+            ->where('approve', 1)
+            ->first();
+    }
+
+    public function section(Request $request, $section)
+    {
         $loading = true;
         $two_ds = OneD::all();
         $currentDate = Carbon::now();
         $two_lottery_off = false;
 
         $two_lottery_off_weekend = false;
-       
+
         $date = $this->getFormattedDate($request->dashboard_date);
-        $lottery_off_day = LotteryOffDay::where('off_day',$date)->where('category_id',4)->get();
-        
-        
-        foreach($lottery_off_day as $n){
-            if( $date == $n->off_day){
-              $two_lottery_off = true;
-            }else{
-              $two_lottery_off = false;
+        $lottery_off_day = LotteryOffDay::where('category_id', 4)->get();
+        $dateN = new DateTime(date($date));
+
+        // Check if the current day is a weekend (assuming Saturday and Sunday are weekends)
+        if (in_array($dateN->format('N'), [6, 7])) {
+            $two_lottery_off = true;
+        } else {
+            $two_lottery_off = false; // Initialize to false, and set to true only if an off day is found
+            foreach ($lottery_off_day as $n) {
+                if ($date == $n->off_day) {
+                    $two_lottery_off = true;
+                    break; // Exit the loop once a match is found
+                }
             }
         }
 
-        if(!$two_lottery_off){
-            if ($currentDate->isWeekend()) {
-                $two_lottery_off = true;
-            } else {
-                $two_lottery_off = false;
-            }
-        }
+
+
         $formatTime =  $this->getFormattedTime($section);
         $block_number =  $this->getBlockOrHotData('block', $date, $section);
         $hot_number =  $this->getBlockOrHotData('hot', $date, $section);
-        $hot_amount = $this->getBlockOrHotAmount('hot',$date, $section);
+        $hot_amount = $this->getBlockOrHotAmount('hot', $date, $section);
         $section =  $this->getSectionData($section);
         $betting =  $this->getUserBets($date, $formatTime);
         $betting_total =  $this->getBettingTotal($date, $formatTime);
         $total_amount =  $this->getOverallStats($date, $formatTime);
         $luckynumber  = $this->getLuckyNumber($date, $formatTime);
-        if($luckynumber){
+        if ($luckynumber) {
             $numberLucky = $luckynumber->lucky_number;
             $read = $luckynumber->read;
             $approve = $luckynumber->approve;
-        }else{
+        } else {
             $numberLucky = '-';
             $read = '0';
             $approve = '0';
         }
+
+        $overAll = OverAllSetting::first();
+
         $loading = false;
-        return view('super_admin.dashboard_1d.index', compact('two_lottery_off_weekend','two_lottery_off','loading','two_ds','section','block_number','hot_number','hot_amount','betting','betting_total','total_amount','numberLucky','read','approve'));
+        return view('super_admin.dashboard_1d.index', compact('two_lottery_off_weekend', 'two_lottery_off', 'loading', 'two_ds', 'section', 'block_number', 'hot_number', 'hot_amount', 'betting', 'betting_total', 'total_amount', 'numberLucky', 'read', 'approve', 'overAll'));
     }
 
     public function time_statics(Request $request)
@@ -291,9 +306,9 @@ class Dashboard1dController extends Controller
                 $user->balance += $status->reward_amount;
                 $user->save();
             }
-            return redirect('super_admin/dashboard/section1d/'.$request->section)->with('flash_message', $section . ' Clearance Success');
+            return redirect('super_admin/dashboard/section1d/' . $request->section)->with('flash_message', $section . ' Clearance Success');
         } else {
-            return redirect('super_admin/dashboard/section1d/'.$request->section)->with('error_message', 'Your password incorrect');
+            return redirect('super_admin/dashboard/section1d/' . $request->section)->with('error_message', 'Your password incorrect');
         }
     }
 
@@ -409,9 +424,9 @@ class Dashboard1dController extends Controller
                     $user_refund->delete();
                 }
             }
-            return redirect('super_admin/dashboard/section1d/'.$request->section)->with('flash_message', $section . ' Refund Success');
+            return redirect('super_admin/dashboard/section1d/' . $request->section)->with('flash_message', $section . ' Refund Success');
         } else {
-            return redirect('super_admin/dashboard/section1d/'.$request->section)->with('error_message', 'Your password incorrect');
+            return redirect('super_admin/dashboard/section1d/' . $request->section)->with('error_message', 'Your password incorrect');
         }
     }
 }

@@ -15,17 +15,7 @@
                 <span></span> <i class="fa fa-caret-down"></i>
             </div>
         </div>
-        <div class="p-2">
-            <div class="form-group">
-                <div class="input-group">
-                    <select class="form-control select2 " id="side_status">
-                        <option value="" >All</option>
-                        <option value="HtawB"  @if ('myvip'==request()->side) selected @endif>MYvip</option>
-                        <option value="icasino" @if ('icasino'==request()->side) selected @endif>Icasino</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+        
         <div class="p-2">
             <div class="form-group">
                 <div class="input-group">
@@ -67,7 +57,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>User Name</th>
-                                    <th>SITE NAME</th>
+                                  
                                     <th>Payment</th>
                                     <th>Account Number</th>
                                     <th>Account Name</th>
@@ -87,7 +77,7 @@
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $cash_out->user->name ?? '-' }}</td>
-                                        <td>{{ $cash_out->side === null ? 'myvip' : 'i-casino' }}</td>
+                                        
                                         <td>{{ $cash_out->payment_method->name }}-{{ $cash_out->user_phone ?? '-' }}</td>
                                         <td>{{ $cash_out->user->phone ?? '-' }}</td>
                                         <td>{{ $cash_out->account_name ?? '-' }}</td>
@@ -145,7 +135,6 @@
                                                         </a>
                                                         <a class="dropdown-item py-1" href="{{ url('/super_admin/user/3d_betslips_only/' .  $cash_out->user->id) }}">3D Bet History
                                                         </a>  
-                                                        <a class="dropdown-item" href="{{ url('/super_admin/user/transition_history',$cash_out->user->user_code) }}">Game Bet history</a>
 
                                                         <a class="dropdown-item" href="{{ url('/super_admin/only/betslip/histroy',$cash_out->user->user_code) }}">Game Bet new</a>
                                                 </div>

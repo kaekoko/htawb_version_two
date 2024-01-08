@@ -434,7 +434,7 @@ class CallBackController extends Controller
       $requesttime = $reqdata->RequestTime;
       $sign = MD5($opcode . $requesttime . $methodname . $secretkey);
       if ($sign == $reqdata->Sign) {
-          if ('htawb2023'== $reqdata->Password) {
+          if ('myvip2023'== $reqdata->Password) {
          $user = User::where('user_code', $reqdata->MemberName)->first();
          $getbalance = [
             "ErrorCode" => 0,

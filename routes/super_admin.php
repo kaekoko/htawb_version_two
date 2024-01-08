@@ -263,6 +263,8 @@ Route::group(['middleware' => ['super_admin'], 'namespace' => 'SuperAdmin', 'pre
     Route::post('daily_bet_slips_1d', 'Dashboard1dController@daily_bet_slips');
     Route::post('check_ref_password_1d', 'Dashboard1dController@check_ref_password');
 
+    Route::get('main/dashboard','MainDashboardController@index');
+
     // Dashboard Crypto 1D
     Route::post('grant_numbers_c1d', 'BetSlipCrypto1dController@all_bets_c1d');
     Route::post('clearance_c1d', 'DashboardCrypto1dController@clearance_c1d');

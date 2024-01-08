@@ -33,7 +33,10 @@ class invoke3D
 
     public static function years()
     {
-        $years = range(date("Y"), 2021);
+        $this_year = date("Y");
+// Add 1 to the variable
+$next_year = $this_year + 1;
+        $years = range($next_year, 2021);
         return $years;
     }
 
