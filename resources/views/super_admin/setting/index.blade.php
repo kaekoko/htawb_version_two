@@ -28,25 +28,7 @@
 </div>
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card card-dark card-outline">
-            <div class="card-header">
-                <h4 class="card-title">Myvip wave Auto Approve</h4>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="custom-control custom-switch">
-                        <input style="cursor: pointer;" onchange=""
-                            {{ $wave_setting->myvip_wave ? 'checked' : '' }} name="myvip_wave"
-                            id="switchTogglemyvip" type="checkbox" class="custom-control-input">
-                        <label style="cursor: pointer;" class="custom-control-label" for="switchTogglemyvip">Htaw B Auto Approve Opened?</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 </div>
