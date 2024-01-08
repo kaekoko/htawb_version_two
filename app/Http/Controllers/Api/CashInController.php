@@ -147,128 +147,13 @@ class CashInController extends Controller
             $cash_in->old_amount = $user->balance;
             $cash_in->date = $datetime['date'];
             $cash_in->time = $datetime['time'];
-            if($request->side != null){
-                $cash_in->side = $request->side;
-            }
-
-            $wave = WaveOpenOff::first();
-
-            if($cash_in->payment_id == 7 && $cash_in->side != null && $wave->icasino_wave == 1){
-
-                    $url = 'https://sms.myvipmm.com/waveinfoicasino';
-
-
-                $response = Http::get($url);
-                $response = $response->json();
-                foreach($response as $r){
-                    $formattedNumber = intval($r[3]);
-                    if($formattedNumber == $cash_in->amount && $r[10] == $cash_in->transaction_id){
-                        $user = User::findOrFail($request->user_id);
-                        $cash_in->status = "Approve";
-                        $cash_in->old_amount = $user->balance;
-                        $user->balance = $user->balance + $request->amount;
-                        $user->update();
-                        $title = 'Cash In Approve';
-                        $body  = 'ငွေဖြည့်သွင်းမူအောင်မြင်ပါသည်';
-                        invokeAll::userAlertNoti($title, number_format($request->amount) . 'MMK ငွေဖြည့်သွင်းမူအောင်မြင်ပါသည်.', $user->id);
-                    }
-                }
-
-            }
-
-            if($cash_in->payment_id == 7 && $cash_in->side == null && $wave->myvip_wave == 1){
-
-                $url = 'https://sms.myvipmm.com/waveinfomyvip';
-
-
-            $response = Http::get($url);
-            $response = $response->json();
-            foreach($response as $r){
-                $formattedNumber = intval($r[3]);
-                if($formattedNumber == $cash_in->amount && $r[10] == $cash_in->transaction_id){
-                    $user = User::findOrFail($request->user_id);
-                    $cash_in->status = "Approve";
-                    $cash_in->old_amount = $user->balance;
-                    $user->balance = $user->balance + $request->amount;
-                    $user->update();
-                    $title = 'Cash In Approve';
-                    $body  = 'ငွေဖြည့်သွင်းမူအောင်မြင်ပါသည်';
-                    invokeAll::userAlertNoti($title, number_format($request->amount) . 'MMK ငွေဖြည့်သွင်းမူအောင်မြင်ပါသည်.', $user->id);
-                }
-            }
-
-        }
 
             $cash_in->save();
-            if($wave->icasino_wave == 1){
-                $currentDate = Carbon::now()->toDateString();
-                $real_casin = CashIn::whereDate('created_at', $currentDate)->where('side','1')->where('payment_id',7)->where('status','Pending')->latest()->first();
-            if($real_casin != null){
-                $real_casin->status = 'Reject';
-                $real_casin->update();
-                $user = User::findOrFail($request->user_id);
-                $title = number_format($request->amount) . 'MMK ငွေဖြည့်သွင်းမူ မ အောင်မြင်ပါ';
-                $body  = 'amount နှင့် transaction id ပြန် လည် စစ် ဆေး ပါ';
-                invokeAll::userAlertNoti($title, 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ', $user->id);
-
-                $body = 'User Cash In ';
-                invokeAll::adminAlertNoti($body);
-                $user->notify(new TelegramCashInNotification($cash_in));
-
-                return response()->json([
-                    'message' => 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ'
-                ], 400);
-            }
-            }
-
-
-            if($wave->myvip_wave == 1){
-                $currentDate = Carbon::now()->toDateString();
-                $real_casin = CashIn::whereDate('created_at', $currentDate)->where('side',null)->where('payment_id',7)->where('status','Pending')->latest()->first();
-            if($real_casin != null){
-                $real_casin->status = 'Reject';
-                $real_casin->update();
-                $user = User::findOrFail($request->user_id);
-                $title = number_format($request->amount) . 'MMK ငွေဖြည့်သွင်းမူ မ အောင်မြင်ပါ';
-                $body  = 'amount နှင့် transaction id ပြန် လည် စစ် ဆေး ပါ';
-                invokeAll::userAlertNoti($title, 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ', $user->id);
-
-                $body = 'User Cash In ';
-                invokeAll::adminAlertNoti($body);
-                $user->notify(new TelegramCashInNotification($cash_in));
-
-                return response()->json([
-                    'message' => 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ'
-                ], 400);
-            }
-            }
-
-
-            if($wave->myvip_wave == 1 && $wave->icasino_wave == 1){
-                $currentDate = Carbon::now()->toDateString();
-                $real_casin = CashIn::whereDate('created_at', $currentDate)->where('payment_id',7)->where('status','Pending')->latest()->first();
-            if($real_casin != null){
-                $real_casin->status = 'Reject';
-                $real_casin->update();
-                $user = User::findOrFail($request->user_id);
-                $title = number_format($request->amount) . 'MMK ငွေဖြည့်သွင်းမူ မ အောင်မြင်ပါ';
-                $body  = 'amount နှင့် transaction id ပြန် လည် စစ် ဆေး ပါ';
-                invokeAll::userAlertNoti($title, 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ', $user->id);
-
-                $body = 'User Cash In ';
-                invokeAll::adminAlertNoti($body);
-                $user->notify(new TelegramCashInNotification($cash_in));
-
-                return response()->json([
-                    'message' => 'ငွေပမာဏ နှင့် လုပ်ငန်းစဉ်နံပါတ် ပြန် လည် စစ် ဆေး ပါ'
-                ], 400);
-            }
-            }
-
+            
             //alert noti for all admin
             $body = 'User Cash In';
             invokeAll::adminAlertNoti($body);
-            $user->notify(new TelegramCashInNotification($cash_in));
+            // $user->notify(new TelegramCashInNotification($cash_in));
 
             return response()->json([
                 'message' => 'CashIn Request Success'
