@@ -224,17 +224,10 @@ class ShamelessGameProviderSeeder extends Seeder
                 'sec_image' => ''
             ],
             
-            [
-                'id' => 26,
-                'name' => 'IBC',
-                'p_code' => 1046,
-                'hot' => 1,
-                'image' => 'ibc.png',
-                'sec_image' => ''
-            ],
+        
 
             [
-                'id' => 27,
+                'id' => 26,
                 'name' => 'Advant Play',
                 'p_code' => 1084,
                 'hot' => 1,
@@ -243,7 +236,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 28,
+                'id' => 27,
                 'name' => 'TrueLab',
                 'p_code' => 1056,
                 'hot' => 1,
@@ -253,7 +246,7 @@ class ShamelessGameProviderSeeder extends Seeder
             
 
             [
-                'id' => 29,
+                'id' => 28,
                 'name' => 'Net Game',
                 'p_code' => 1064,
                 'hot' => 1,
@@ -262,7 +255,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 30,
+                'id' => 29,
                 'name' => 'Boongo',
                 'p_code' => 1070,
                 'hot' => 1,
@@ -271,7 +264,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 31,
+                'id' => 30,
                 'name' => 'BTI',
                 'p_code' => 1081,
                 'hot' => 1,
@@ -280,7 +273,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 32,
+                'id' => 31,
                 'name' => 'Felix Gaming',
                 'p_code' => 1098,
                 'hot' => 1,
@@ -289,7 +282,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 33,
+                'id' => 32,
                 'name' => 'Gss',
                 'p_code' => 1015,
                 'hot' => 1,
@@ -298,7 +291,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 34,
+                'id' => 33,
                 'name' => 'Royal Slot Gaming',
                 'p_code' => 1105,
                 'hot' => 1,
@@ -307,7 +300,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 35,
+                'id' => 34,
                 'name' => 'Red Tiger',
                 'p_code' => 1110,
                 'hot' => 1,
@@ -316,7 +309,7 @@ class ShamelessGameProviderSeeder extends Seeder
             ], 
 
             [
-                'id' => 36,
+                'id' => 35,
                 'name' => 'KA Gaming',
                 'p_code' => 1102,
                 'hot' => 1,
