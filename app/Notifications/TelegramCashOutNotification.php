@@ -47,14 +47,14 @@ class TelegramCashOutNotification extends Notification
         $amount = $this->cash_out['amount'];
         $phone = $this->cash_out['user_phone'];
 
-        $url = "https://admin.myvipmm.com/super_admin/cash-out";
+        $url = "https://admin.htawb2d3d.com/super_admin/cash-out";
         $exchange_rate = $this->cash_out["payment_method"]["exchange_rate"];
         if (!empty($exchange_rate)) {
             $amount = round($amount / $exchange_rate, 2) . "Baht ( " . $amount . "Ks )";
         }
         return TelegramMessage::create()
             ->to('-1001702812664')
-            ->content("*New CashOut MYVIPMM*\nPhone=$phone\nName=$name\nAmount=$amount\n")
+            ->content("*New CashOut HTAWB2D3D*\nPhone=$phone\nName=$name\nAmount=$amount\n")
             ->button('View Cash Out', $url);
     }
 

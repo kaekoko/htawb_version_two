@@ -290,10 +290,10 @@ class ShamelessGameProviderSeeder extends Seeder
 
             [
                 'id' => 33,
-                'name' => 'Espresso',
-                'p_code' => 1099,
+                'name' => 'Gss',
+                'p_code' => 1015,
                 'hot' => 1,
-                'image' => 'espresso.png',
+                'image' => 'gss_gaming.png',
                 'sec_image' => ''
             ], 
 
@@ -312,6 +312,15 @@ class ShamelessGameProviderSeeder extends Seeder
                 'p_code' => 1110,
                 'hot' => 1,
                 'image' => 'redtiger.png',
+                'sec_image' => ''
+            ], 
+
+            [
+                'id' => 36,
+                'name' => 'KA Gaming',
+                'p_code' => 1102,
+                'hot' => 1,
+                'image' => 'ka_gaming.png',
                 'sec_image' => ''
             ], 
         ];
@@ -425,7 +434,7 @@ class ShamelessGameProviderSeeder extends Seeder
                     $g->categories()->sync([1]);
                     break;
             
-                case "Espresso":
+                case "Gss":
                     $g->categories()->sync([1]);
                     break;
 
@@ -436,6 +445,11 @@ class ShamelessGameProviderSeeder extends Seeder
                 case "Red Tiger":
                     $g->categories()->sync([1]);
                     break;
+                case "KA Gaming":
+                    $g->categories()->sync([1]);
+                    break;
+
+                    
             }
 
             $imagePath = 'provider/' . $game['image'];
