@@ -14,8 +14,8 @@ class FirebaseController extends Controller
     public function index($text)
     {
        $firebase = (new Factory)
-            ->withServiceAccount(__DIR__ . '/myvipwebsite-e2673-firebase-adminsdk-io6hx-b3bd31ba0b.json')
-            ->withDatabaseUri('https://myvipwebsite-e2673-default-rtdb.asia-southeast1.firebasedatabase.app');
+            ->withServiceAccount(__DIR__ . '/htawb-ab488-firebase-adminsdk-9xoeb-de394d8284.json')
+            ->withDatabaseUri('https://htawb-ab488-default-rtdb.asia-southeast1.firebasedatabase.app');
 
         $database = $firebase->createDatabase();
 
