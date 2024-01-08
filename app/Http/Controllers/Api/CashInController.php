@@ -153,7 +153,7 @@ class CashInController extends Controller
             //alert noti for all admin
             $body = 'User Cash In';
             invokeAll::adminAlertNoti($body);
-            // $user->notify(new TelegramCashInNotification($cash_in));
+            $user->notify(new TelegramCashInNotification($cash_in));
 
             return response()->json([
                 'message' => 'CashIn Request Success'

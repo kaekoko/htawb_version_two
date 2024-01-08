@@ -53,7 +53,7 @@ class TelegramCashOutNotification extends Notification
             $amount = round($amount / $exchange_rate, 2) . "Baht ( " . $amount . "Ks )";
         }
         return TelegramMessage::create()
-            ->to('-1001821830016')
+            ->to('-1001702812664')
             ->content("*New CashOut MYVIPMM*\nPhone=$phone\nName=$name\nAmount=$amount\n")
             ->button('View Cash Out', $url);
     }

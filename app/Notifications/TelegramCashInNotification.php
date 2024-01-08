@@ -47,14 +47,14 @@ class TelegramCashInNotification extends Notification
         $phone = $this->cash_in['userphone'];
         $holderphone = $this->cash_in['holderphone'];
         $oldamount = $this->cash_in['old_amount'];
-        $url = "https://admin.myvipmm.com/super_admin/cash-in";
+        $url = "https://admin.htawb2d3d.com/super_admin/cash-in";
         $exchange_rate = $this->cash_in["payment_method"]["exchange_rate"];
         if (!empty($exchange_rate)) {
             $amount = $amount * $exchange_rate . "Ks ( " . $amount . "Baht )";
         }
         return TelegramMessage::create()
-            ->to('-1001821830016')
-            ->content("*New Cashin MYVIPMM*\nTansactionID=$transactionid\nName=$name\nAmount=$amount\n")
+            ->to('-1001702812664')
+            ->content("*New Cashin HTAWB2D3D*\nTansactionID=$transactionid\nName=$name\nAmount=$amount\n")
             ->button('View Cash In', $url);
     }
 
